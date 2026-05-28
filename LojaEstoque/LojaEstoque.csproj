@@ -7,14 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Api\Controllers\" />
     <Folder Include="Aplicacao\Dtos\" />
     <Folder Include="Aplicacao\Interfaces\" />
     <Folder Include="Repositories\Contexto\" />
-    <Folder Include="Api\" />
-    <Folder Include="Repositories\" />
+	<Folder Include="Dominio\Entidades" />
+	<Folder Include="Dominio\Interfaces" />
+	<Folder Include="Dominio\Services" />
     <Folder Include="Aplicacao\Validators\" />
     <Folder Include="Api\Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.2.0" />
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+	<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.8" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8" />
   </ItemGroup>
 
 </Project>
