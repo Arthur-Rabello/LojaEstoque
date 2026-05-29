@@ -19,7 +19,7 @@ string postgresDatabase = Environment.GetEnvironmentVariable("POSTGRES_DATABASE"
 string postgresUsername = Environment.GetEnvironmentVariable("POSTGRES_USERNAME");
 string postgresPassword = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD");
 
-string connectionString = $"Host={postgresHost};Port={postgresPort};Database={postgresDatabase};Username={postgresUsername};Password={postgresPassword}";
+string connectionString = $"Host={postgresHost};Port={postgresPort};Database={postgresDatabase};Username={postgresUsername};Password={postgresPassword};SSL Mode=Require;Trust Server Certificate=true";
 
 builder.Services.AddDbContext<LojaContext>(options =>
 {

@@ -29,7 +29,57 @@ namespace LojaEstoque.Dominio.Services
 
             await _irepProduto.Cadastrar(produto);
             return produto;
+        } 
+        #endregion
+
+        #region Listar
+        public async Task<List<Produto>> Listar()
+        {
+            return await _irepProduto.Listar();
         }
+        #endregion
+
+        #region BuscarPorId
+        public async Task<Produto> BuscarPorId(Guid id)
+        {
+            return await _irepProduto.BuscarPorId(id);
+        }
+        #endregion
+
+        #region Remover
+        public async Task<Produto> Remover(Guid id)
+        {
+            Produto produto = await _irepProduto.BuscarPorId(id);
+
+            if (produto == null)
+            {
+                throw new Exception("Produto não encontrado");
+            }
+
+
+            return await _irepProduto.Remover(id);
+        }
+        #endregion
+
+        #region Editar
+        public async Task<Produto> Editar(Guid id, ProdutoDto produtoDto)
+        {
+            Produto produto = await _irepProduto.BuscarPorId(id);
+
+            if (produto == null)
+            {
+                throw new Exception("Produto não encontrado");
+            }
+
+            produto.Descricao = produtoDto.Descricao;
+            produto.PrecoUnitario = produtoDto.PrecoUnitario;
+            produto.Quantidade = produtoDto.Quantidade;
+
+            Produto produtoEditado = await _irepProduto.Editar(produto);
+
+            return produtoEditado;
+        }
+        #endregion
     }
-    #endregion
+
 }

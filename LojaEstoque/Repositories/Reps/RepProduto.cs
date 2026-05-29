@@ -1,6 +1,7 @@
 ﻿using LojaEstoque.Dominio.Entidades;
 using LojaEstoque.Repositories.Contexto;
 using LojaEstoque.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace LojaEstoque.Repositories.Reps
 {
@@ -25,31 +26,46 @@ namespace LojaEstoque.Repositories.Reps
         }
         #endregion
 
-        //#region Listar
-        //public async Task<List<Produto>> Listar()
-        //{
-        //    return await _lojaContext.Produtos
-        //        .AsNoTracking()
-        //        .ToListAsync();
-        //}
-        //#endregion
+        #region Listar
+        public async Task<List<Produto>> Listar()
+        {
+            return await _lojaContext.Produtos.ToListAsync();
+        }
+        #endregion
 
-        //#region BuscarPorId
-        //public async Task<Produto> BuscarPorId(long id)
-        //{
-        //    return await _lojaContext.Produtos
-        //        .AsNoTracking()
-        //        .FirstOrDefaultAsync(x => x.Id == id);
-        //}
-        //#endregion
+        #region Remover
+        public async Task<Produto> Remover(Guid id)
+        {   
+            Produto? produto = await BuscarPorId(id);
 
-        //#region ExistePorDescricao
-        //public async Task<bool> ExistePorDescricao(string descricao)
-        //{
-        //    return await _lojaContext.Produtos
-        //        .AsNoTracking()
-        //        .AnyAsync(x => x.Descricao == descricao);
-        //}
-        //#endregion
+            _lojaContext.Produtos.Remove(produto);
+
+            await _lojaContext.SaveChangesAsync();
+
+            return produto;
+        }
+        #endregion
+
+        #region BuscarPorId
+        public async Task<Produto> BuscarPorId(Guid id)
+        {
+            Produto? produto = await _lojaContext.Produtos
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return produto;
+        }
+        #endregion
+
+        #region Editar
+        public async Task<Produto> Editar(Produto produto)
+        {
+            _lojaContext.Produtos.Update(produto);
+
+            await _lojaContext.SaveChangesAsync();
+
+            return produto;
+        }
+        #endregion
     }
 }

@@ -30,5 +30,37 @@ namespace LojaEstoque.Aplicacao.Aplic
             return produto;
         }
         #endregion
+
+        #region Listar
+        public async Task<List<Produto>> Listar()
+        {
+            return await _servProduto.Listar();
+        }
+        #endregion
+
+        #region BuscarPorId
+        public async Task<Produto> BuscarPorId(Guid id)
+        {
+            return await _servProduto.BuscarPorId(id);
+        }
+        #endregion
+
+        #region Remover
+        public async Task<Produto> Remover(Guid id)
+        {
+            return await _servProduto.Remover(id);
+        }
+        #endregion
+
+        #region Editar
+        public async Task<Produto> Editar(Guid id, ProdutoDto produtoDto)
+        {
+            await _produtoValidator.ValidateAndThrowAsync(produtoDto);
+            Produto produto = await _servProduto.Editar(id, produtoDto);
+           
+            return produto;
+
+        }
+        #endregion
     }
 }
