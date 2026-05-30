@@ -1,7 +1,7 @@
-﻿using LojaEstoque.Dominio.Interfaces;
+﻿using LojaEstoque.Aplicacao.Dtos;
+using LojaEstoque.Dominio.Exceptions;
 using LojaEstoque.Dominio.Entidades;
-using LojaEstoque.Aplicacao.Interfaces;
-using LojaEstoque.Aplicacao.Dtos;
+using LojaEstoque.Dominio.Interfaces;
 using LojaEstoque.Repositories.Interfaces;
 
 namespace LojaEstoque.Dominio.Services
@@ -24,16 +24,25 @@ namespace LojaEstoque.Dominio.Services
 
             if (produto == null)
             {
-                throw new Exception("Produto não encontrado");
+                throw new RegraDeNegocioException("Produto não encontrado");
             }
 
             Carrinho carrinho = new Carrinho();
-            
-                carrinho.ProdutoId = produto.Id;
-                carrinho.Quantidade = carrinhoDto.Quantidade;
-                carrinho.PrecoUnitario = produto.PrecoUnitario;
-                carrinho.PrecoTotal = carrinho.Quantidade * carrinho.PrecoUnitario;
-            
+
+            if (produto.Quantidade < carrinhoDto.Quantidade)
+            {
+                throw new RegraDeNegocioException("Quantidade em estoque insuficiente.");
+            }
+
+            carrinho.ProdutoId = produto.Id;
+            carrinho.Quantidade = carrinhoDto.Quantidade;
+            carrinho.PrecoUnitario = produto.PrecoUnitario;
+            carrinho.PrecoTotal = carrinho.Quantidade * carrinho.PrecoUnitario;
+
+            produto.Quantidade -= carrinho.Quantidade;
+
+            await _repProduto.Editar(produto);
+
             await _repCarrinho.Cadastrar(carrinho);
             return carrinho;
         }
@@ -65,7 +74,7 @@ namespace LojaEstoque.Dominio.Services
             Carrinho carrinho = await _repCarrinho.BuscarPorId(id);
             if (carrinho == null)
             {
-                throw new Exception("Carrinho não encontrado");
+                throw new RegraDeNegocioException("Carrinho não encontrado");
             }
             return await _repCarrinho.Remover(id);
         }
@@ -77,7 +86,7 @@ namespace LojaEstoque.Dominio.Services
             Carrinho carrinho = await _repCarrinho.BuscarPorId(id);
             if (carrinho == null)
             {
-                throw new Exception("Carrinho não encontrado");
+                throw new RegraDeNegocioException("Carrinho não encontrado");
             }
             {
                 carrinho.Quantidade = carrinhoEditarDto.Quantidade;

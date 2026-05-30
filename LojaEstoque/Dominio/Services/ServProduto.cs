@@ -1,8 +1,6 @@
-﻿using LojaEstoque.Aplicacao.Aplic;
-using LojaEstoque.Aplicacao.Interfaces;
-using LojaEstoque.Dominio.Entidades;
+﻿using LojaEstoque.Dominio.Entidades;
 using LojaEstoque.Repositories.Interfaces;
-using LojaEstoque.Aplicacao.Validators;
+using LojaEstoque.Dominio.Exceptions;
 using LojaEstoque.Dominio.Interfaces;
 using LojaEstoque.Aplicacao.Dtos;
 
@@ -20,12 +18,20 @@ namespace LojaEstoque.Dominio.Services
         #endregion
         #region Cadastrar
         public async Task<Produto?> Cadastrar(ProdutoDto produtoDto)
-        {
+        { 
             Produto produto = new Produto();
 
             produto.Descricao = produtoDto.Descricao;
             produto.PrecoUnitario = produtoDto.PrecoUnitario;
             produto.Quantidade = produtoDto.Quantidade;
+
+            bool descricaoExiste = await _irepProduto.ExisteDescricao(produtoDto.Descricao);
+
+            if (descricaoExiste)
+            {
+                throw new RegraDeNegocioException("Já existe um produto com essa descrição");
+            }
+
 
             await _irepProduto.Cadastrar(produto);
             return produto;
@@ -54,7 +60,7 @@ namespace LojaEstoque.Dominio.Services
 
             if (produto == null)
             {
-                throw new Exception("Produto não encontrado");
+                throw new RegraDeNegocioException("Produto não encontrado");
             }
 
 
@@ -69,12 +75,19 @@ namespace LojaEstoque.Dominio.Services
 
             if (produto == null)
             {
-                throw new Exception("Produto não encontrado");
+                throw new RegraDeNegocioException("Produto não encontrado");
             }
 
             produto.Descricao = produtoDto.Descricao;
             produto.PrecoUnitario = produtoDto.PrecoUnitario;
             produto.Quantidade = produtoDto.Quantidade;
+
+            bool descricaoExiste = await _irepProduto.ExisteDescricaoOutroProduto(produto.Id, produtoDto.Descricao);
+
+            if (descricaoExiste)
+            {
+                throw new RegraDeNegocioException("Já existe outro produto com essa descrição");
+            }
 
             Produto produtoEditado = await _irepProduto.Editar(produto);
 

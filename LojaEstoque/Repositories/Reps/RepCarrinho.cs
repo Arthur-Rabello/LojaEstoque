@@ -26,7 +26,9 @@ namespace LojaEstoque.Repositories.Reps
         #region Listar
         public async Task<List<Carrinho?>> Listar()
         {
-            return await _lojaContext.Carrinho.ToListAsync();
+            return await _lojaContext.Carrinho
+                .AsNoTracking()
+                .ToListAsync();
         }
         #endregion
 

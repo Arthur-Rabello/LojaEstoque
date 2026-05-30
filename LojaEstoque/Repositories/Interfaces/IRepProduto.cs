@@ -9,5 +9,7 @@ namespace LojaEstoque.Repositories.Interfaces
         public Task<Produto?> BuscarPorId(Guid id);
         public Task<Produto?> Remover(Guid id);
         public Task<Produto?> Editar(Produto produto);
+        public Task<bool> ExisteDescricao(string descricao);
+        public Task<bool> ExisteDescricaoOutroProduto(Guid id, string descricao);
     }
 }

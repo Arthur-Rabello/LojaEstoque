@@ -13,5 +13,6 @@ namespace LojaEstoque.Repositories.Contexto
 
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Carrinho> Carrinho { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
     }
 }

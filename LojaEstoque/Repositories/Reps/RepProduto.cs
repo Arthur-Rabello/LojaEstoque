@@ -27,7 +27,9 @@ namespace LojaEstoque.Repositories.Reps
         #region Listar
         public async Task<List<Produto>> Listar()
         {
-            return await _lojaContext.Produtos.ToListAsync();
+            return await _lojaContext.Produtos
+                .AsNoTracking()
+                .ToListAsync();
         }
         #endregion
 
@@ -63,6 +65,27 @@ namespace LojaEstoque.Repositories.Reps
             await _lojaContext.SaveChangesAsync();
 
             return produto;
+        }
+        #endregion
+
+        #region ExisteDescricao
+        public async Task<bool> ExisteDescricao(string descricao)
+        {
+            descricao = descricao.Trim().ToLower();
+
+            return await _lojaContext.Produtos
+                .AsNoTracking()
+                .AnyAsync(x => x.Descricao.ToLower() == descricao.ToLower());
+        }
+        #endregion
+
+        #region ExisteDescricaoOutroProduto
+        public async Task<bool> ExisteDescricaoOutroProduto(Guid id, string descricao)
+        {
+            descricao = descricao.Trim().ToLower();
+            return await _lojaContext.Produtos
+                .AsNoTracking()
+                .AnyAsync(x => x.Descricao.ToLower() == descricao.ToLower() && x.Id != id);
         }
         #endregion
     }
