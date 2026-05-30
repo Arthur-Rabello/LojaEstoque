@@ -22,6 +22,32 @@ namespace LojaEstoque.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("LojaEstoque.Dominio.Entidades.Carrinho", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("PrecoTotal")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("PrecoUnitario")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("PrecoUnitarioTotal")
+                        .HasColumnType("numeric");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Carrinho");
+                });
+
             modelBuilder.Entity("LojaEstoque.Dominio.Entidades.Produto", b =>
                 {
                     b.Property<Guid>("Id")

@@ -12,5 +12,6 @@ namespace LojaEstoque.Repositories.Contexto
         #endregion
 
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Carrinho> Carrinho { get; set; }
     }
 }

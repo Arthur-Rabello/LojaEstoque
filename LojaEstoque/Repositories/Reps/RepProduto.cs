@@ -8,14 +8,12 @@ namespace LojaEstoque.Repositories.Reps
     public class RepProduto : IRepProduto
     {
         private readonly LojaContext _lojaContext;
-
-        #region RepProduto
+     
         public RepProduto(LojaContext lojaContext)
         {
             _lojaContext = lojaContext;
         }
-        #endregion
-
+        
         #region Cadastrar
         public async Task<Produto?> Cadastrar(Produto produto)
         {

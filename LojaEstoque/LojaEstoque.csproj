@@ -7,13 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Aplicacao\Dtos\" />
-    <Folder Include="Aplicacao\Interfaces\" />
     <Folder Include="Repositories\Contexto\" />
-	<Folder Include="Dominio\Entidades" />
-	<Folder Include="Dominio\Interfaces" />
-	<Folder Include="Dominio\Services" />
-    <Folder Include="Aplicacao\Validators\" />
     <Folder Include="Api\Views\" />
   </ItemGroup>
 

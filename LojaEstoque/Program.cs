@@ -18,8 +18,9 @@ string postgresPort = Environment.GetEnvironmentVariable("POSTGRES_PORT");
 string postgresDatabase = Environment.GetEnvironmentVariable("POSTGRES_DATABASE");
 string postgresUsername = Environment.GetEnvironmentVariable("POSTGRES_USERNAME");
 string postgresPassword = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD");
+string postgresSslMode = Environment.GetEnvironmentVariable("POSTGRES_SSL_MODE");
 
-string connectionString = $"Host={postgresHost};Port={postgresPort};Database={postgresDatabase};Username={postgresUsername};Password={postgresPassword};SSL Mode=Require;Trust Server Certificate=true";
+string connectionString = $"Host={postgresHost};Port={postgresPort};Database={postgresDatabase};Username={postgresUsername};Password={postgresPassword};SSL Mode={postgresSslMode};Trust Server Certificate=true";
 
 builder.Services.AddDbContext<LojaContext>(options =>
 {
@@ -28,6 +29,10 @@ builder.Services.AddDbContext<LojaContext>(options =>
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IAplicCarrinho, AplicCarrinho>();
+builder.Services.AddScoped<IServCarrinho, ServCarrinho>();
+builder.Services.AddScoped<IRepCarrinho, RepCarrinho>();
+builder.Services.AddScoped<CarrinhoValidator>();
 builder.Services.AddScoped<IAplicProduto, AplicProduto>();
 builder.Services.AddScoped<IServProduto, ServProduto>();
 builder.Services.AddScoped<IRepProduto, RepProduto>();

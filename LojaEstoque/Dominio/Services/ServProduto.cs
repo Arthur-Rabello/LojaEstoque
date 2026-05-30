@@ -36,6 +36,7 @@ namespace LojaEstoque.Dominio.Services
         public async Task<List<Produto>> Listar()
         {
             return await _irepProduto.Listar();
+
         }
         #endregion
 
