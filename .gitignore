@@ -4,10 +4,13 @@
 *.suo
 *.userosscache
 *.sln.docstates
+*.csproj.user
 
 # Build
 bin/
 obj/
+**/bin/
+**/obj/
 [Bb]uild/
 [Dd]ebug/
 [Rr]elease/
@@ -20,6 +23,8 @@ x86/
 *.pdb
 *.cache
 *.log
+*.deps.json
+*.runtimeconfig.json
 
 # Rider / JetBrains
 .idea/
@@ -31,16 +36,39 @@ x86/
 # Arquivos de ambiente
 .env
 **/.env
+.env.*
+**/.env.*
 !.env.example
+
+# Backups / arquivos temporários
+*.backup
+*.bak
+*.tmp
+*.temp
 
 # Configurações locais
 appsettings.Development.json
+*.Development.json
+secrets.json
+
+# Banco local
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Publicação
+publish/
+PublishProfiles/
+Properties/PublishProfiles/
 
 # Testes
 TestResults/
 coverage/
 *.coverage
 *.coveragexml
+.coverage/
 
 # NuGet
 *.nupkg
@@ -50,6 +78,10 @@ project.assets.json
 
 # Entity Framework temporários
 Migrations/*Designer.cs.tmp
+
+# Logs
+logs/
+Logs/
 
 # Sistema operacional
 .DS_Store
