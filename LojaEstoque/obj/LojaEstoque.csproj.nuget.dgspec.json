@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Repositórios\\LojaEstoque\\LojaEstoque\\LojaEstoque.csproj": {}
+    "C:\\Projetos\\LojaEstoque\\LojaEstoque\\LojaEstoque.csproj": {}
   },
   "projects": {
-    "D:\\Repositórios\\LojaEstoque\\LojaEstoque\\LojaEstoque.csproj": {
+    "C:\\Projetos\\LojaEstoque\\LojaEstoque\\LojaEstoque.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Repositórios\\LojaEstoque\\LojaEstoque\\LojaEstoque.csproj",
+        "projectUniqueName": "C:\\Projetos\\LojaEstoque\\LojaEstoque\\LojaEstoque.csproj",
         "projectName": "LojaEstoque",
-        "projectPath": "D:\\Repositórios\\LojaEstoque\\LojaEstoque\\LojaEstoque.csproj",
-        "packagesPath": "C:\\Users\\Arthu\\.nuget\\packages\\",
-        "outputPath": "D:\\Repositórios\\LojaEstoque\\LojaEstoque\\obj\\",
+        "projectPath": "C:\\Projetos\\LojaEstoque\\LojaEstoque\\LojaEstoque.csproj",
+        "packagesPath": "C:\\Users\\arthu\\.nuget\\packages\\",
+        "outputPath": "C:\\Projetos\\LojaEstoque\\LojaEstoque\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Arthu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\arthu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -57,6 +57,10 @@
             "FluentValidation": {
               "target": "Package",
               "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.8, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

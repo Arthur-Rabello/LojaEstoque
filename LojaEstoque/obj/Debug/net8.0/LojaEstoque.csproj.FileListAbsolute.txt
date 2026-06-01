@@ -103,7 +103,6 @@ C:\Projetos\LojaEstoque\LojaEstoque\obj\Debug\net8.0\refint\LojaEstoque.dll
 C:\Projetos\LojaEstoque\LojaEstoque\obj\Debug\net8.0\LojaEstoque.pdb
 C:\Projetos\LojaEstoque\LojaEstoque\obj\Debug\net8.0\LojaEstoque.genruntimeconfig.cache
 C:\Projetos\LojaEstoque\LojaEstoque\obj\Debug\net8.0\ref\LojaEstoque.dll
-C:\Projetos\LojaEstoque\LojaEstoque\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\Repositórios\LojaEstoque\LojaEstoque\bin\Debug\net8.0\appsettings.Development.json
 D:\Repositórios\LojaEstoque\LojaEstoque\bin\Debug\net8.0\appsettings.json
 D:\Repositórios\LojaEstoque\LojaEstoque\bin\Debug\net8.0\LojaEstoque.staticwebassets.endpoints.json
@@ -210,3 +209,11 @@ D:\Repositórios\LojaEstoque\LojaEstoque\obj\Debug\net8.0\LojaEstoque.pdb
 D:\Repositórios\LojaEstoque\LojaEstoque\obj\Debug\net8.0\LojaEstoque.genruntimeconfig.cache
 D:\Repositórios\LojaEstoque\LojaEstoque\obj\Debug\net8.0\ref\LojaEstoque.dll
 D:\Repositórios\LojaEstoque\LojaEstoque\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Projetos\LojaEstoque\LojaEstoque\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Projetos\LojaEstoque\LojaEstoque\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Projetos\LojaEstoque\LojaEstoque\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Projetos\LojaEstoque\LojaEstoque\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Projetos\LojaEstoque\LojaEstoque\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Projetos\LojaEstoque\LojaEstoque\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Projetos\LojaEstoque\LojaEstoque\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Projetos\LojaEstoque\LojaEstoque\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

@@ -1,6 +1,7 @@
 ﻿using LojaEstoque.Aplicacao.Dtos;
 using LojaEstoque.Aplicacao.Interfaces;
 using LojaEstoque.Dominio.Entidades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaEstoque.Api.Controllers
@@ -17,6 +18,7 @@ namespace LojaEstoque.Api.Controllers
         #endregion
 
         #region Cadastrar
+        [Authorize(Roles = "Admin")]
         [HttpPost("Cadastrar")]
         public async Task<IActionResult> Cadastar([FromBody] ProdutoDto produtoDto)
         {
@@ -45,6 +47,7 @@ namespace LojaEstoque.Api.Controllers
         #endregion
 
         #region Remover
+        [Authorize(Roles = "Admin")]
         [HttpDelete("Remover/{id}")]
         public async Task<IActionResult> Remover(Guid id)
         {
@@ -54,6 +57,7 @@ namespace LojaEstoque.Api.Controllers
         #endregion
 
         #region Editar
+        [Authorize(Roles = "Admin")]
         [HttpPut("Editar/{id}")]
         public async Task<IActionResult> Editar(Guid id, [FromBody] ProdutoDto produtoDto)
         {
@@ -61,5 +65,6 @@ namespace LojaEstoque.Api.Controllers
             return Ok(produto);
         }
         #endregion
+
     }
 }

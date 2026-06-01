@@ -1,0 +1,57 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# .NET
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# Arquivos de ambiente
+.env
+**/.env
+!.env.example
+
+# Configurações locais
+appsettings.Development.json
+
+# Testes
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+project.assets.json
+
+# Entity Framework temporários
+Migrations/*Designer.cs.tmp
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini

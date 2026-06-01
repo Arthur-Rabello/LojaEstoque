@@ -11,6 +11,13 @@ namespace LojaEstoque.Aplicacao.Validators
             RuleFor(x => x.Nome)
                 .NotEmpty()
                 .WithMessage("O nome é obrigatório.");
+
+            RuleFor(x => x.Nome)
+                .MinimumLength(4)
+                .WithMessage("O nome deve conter no mínimo 4 caracteres.")
+                .MaximumLength(100)
+                .WithMessage("O nome deve conter no máximo 100 caracteres.");
+
             RuleFor(x => x.Email)
                 .NotEmpty()
                 .WithMessage("O email é obrigatório.")

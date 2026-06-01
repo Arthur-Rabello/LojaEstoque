@@ -8,8 +8,12 @@ using LojaEstoque.Repositories.Contexto;
 using LojaEstoque.Repositories.Interfaces;
 using LojaEstoque.Repositories.Reps;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 Env.Load();
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +31,32 @@ builder.Services.AddDbContext<LojaContext>(options =>
     options.UseNpgsql(connectionString);
 });
 
-builder.Services.AddControllersWithViews();
+string jwtSecretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
+string jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER");
+string jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE");
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = jwtIssuer,
+        ValidAudience = jwtAudience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey))
+    };
+});
+
+builder.Services.AddAuthorization();
+builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAplicCarrinho, AplicCarrinho>();
 builder.Services.AddScoped<IServCarrinho, ServCarrinho>();
 builder.Services.AddScoped<IRepCarrinho, RepCarrinho>();
@@ -37,6 +65,16 @@ builder.Services.AddScoped<IAplicProduto, AplicProduto>();
 builder.Services.AddScoped<IServProduto, ServProduto>();
 builder.Services.AddScoped<IRepProduto, RepProduto>();
 builder.Services.AddScoped<ProdutoValidator>();
+builder.Services.AddScoped<IAplicUsuario, AplicUsuario>();
+builder.Services.AddScoped<IServUsuario, ServUsuario>();
+builder.Services.AddScoped<IRepUsuario, RepUsuario>();
+builder.Services.AddScoped<UsuarioValidator>();
+builder.Services.AddScoped<IServToken, ServToken>();
+builder.Services.AddScoped<LoginValidator>();
+builder.Services.AddScoped<IServLogin, ServLogin>();
+builder.Services.AddScoped<IAplicLogin, AplicLogin>();
+builder.Services.AddScoped<UsuarioEditarValidator>();
+builder.Services.AddScoped<IServSenha, ServSenha>();
 
 var app = builder.Build();
 
@@ -51,6 +89,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
