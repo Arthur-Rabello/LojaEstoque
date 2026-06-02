@@ -5,11 +5,11 @@ namespace LojaEstoque.Aplicacao.Interfaces
 {
     public interface IAplicUsuario
     {
-        public Task<Usuario> Cadastrar(UsuarioDto usuarioDto);
-        public Task<List<Usuario>> Listar();
-        public Task<Usuario> BuscarPorId(Guid id);
-        public Task<Usuario> Remover(Guid id);
-        public Task<Usuario> Editar(Guid id, UsuarioEditarDto usuarioEditarDto);
-        public Task<Usuario> TornarAdmin(Guid id);
+        public Task<UsuarioRespostaDto> Cadastrar(UsuarioDto usuarioDto);
+        public Task<List<UsuarioRespostaDto>> Listar();
+        public Task<UsuarioRespostaDto> BuscarPorId(Guid id);
+        public Task Remover(Guid id);
+        public Task<UsuarioRespostaDto> Editar(Guid id, UsuarioEditarDto usuarioEditarDto);
+        public Task<UsuarioRespostaDto> TornarAdmin(Guid id);
     }
 }

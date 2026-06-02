@@ -3,7 +3,6 @@ using LojaEstoque.Dominio.Entidades;
 using LojaEstoque.Dominio.Exceptions;
 using LojaEstoque.Dominio.Interfaces;
 using LojaEstoque.Repositories.Interfaces;
-using System.ComponentModel.DataAnnotations;
 
 namespace LojaEstoque.Dominio.Services
 {
@@ -58,15 +57,23 @@ namespace LojaEstoque.Dominio.Services
         #region BuscarPorId
         public async Task<Usuario> BuscarPorId(Guid id)
         {
-            return await _repUsuario.BuscarPorId(id);
+            Usuario? usuario = await _repUsuario.BuscarPorId(id);
+
+            if (usuario == null)
+            {
+                throw new RegraDeNegocioException("Usuário não encontrado.");
+            }
+
+            return usuario;
         }
         #endregion
 
         #region Remover
-        public async Task<Usuario> Remover(Guid id)
+        public async Task Remover(Guid id)
         {
-            Usuario usuario = await _repUsuario.BuscarPorId(id);
-            return await _repUsuario.Remover(id);
+            Usuario usuario = await BuscarPorId(id);
+
+            await _repUsuario.Remover(usuario);
         }
         #endregion
 

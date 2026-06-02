@@ -1,12 +1,11 @@
-﻿using LojaEstoque.Aplicacao.Aplic;
-using LojaEstoque.Aplicacao.Dtos;
+﻿using LojaEstoque.Aplicacao.Dtos;
 using LojaEstoque.Aplicacao.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaEstoque.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class LoginController : Controller
+    public class LoginController : ControllerBase
     {
         private readonly IAplicLogin _aplicLogin;
 
@@ -18,7 +17,7 @@ namespace LojaEstoque.Api.Controllers
         #endregion
 
         #region Login
-        [HttpPost("Login")]
+        [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginDto LoginDto)
         {
             var token = await _aplicLogin.Login(LoginDto);

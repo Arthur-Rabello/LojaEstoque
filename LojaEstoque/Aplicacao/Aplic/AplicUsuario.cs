@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using LojaEstoque.Aplicacao.Dtos;
 using LojaEstoque.Aplicacao.Interfaces;
+using LojaEstoque.Aplicacao.Mappers;
 using LojaEstoque.Aplicacao.Validators;
 using LojaEstoque.Dominio.Entidades;
 using LojaEstoque.Dominio.Interfaces;
@@ -11,59 +12,65 @@ namespace LojaEstoque.Aplicacao.Aplic
     {
         private readonly IServUsuario _servUsuario;
         private readonly UsuarioValidator _usuarioValidator;
-        private readonly LoginValidator _loginValidator;
         private readonly UsuarioEditarValidator _usuarioEditarValidator;
 
-        public AplicUsuario(IServUsuario servUsuario, UsuarioValidator usuariovalidator, LoginValidator loginValidator, UsuarioEditarValidator usuarioEditarValidator)
+        public AplicUsuario(IServUsuario servUsuario, UsuarioValidator usuariovalidator, UsuarioEditarValidator usuarioEditarValidator)
         {
             _servUsuario = servUsuario;
             _usuarioValidator = usuariovalidator;
-            _loginValidator = loginValidator;
             _usuarioEditarValidator = usuarioEditarValidator;
         }
 
         #region Cadastrar
-        public async Task<Usuario?> Cadastrar(UsuarioDto usuarioDto)
+        public async Task<UsuarioRespostaDto?> Cadastrar(UsuarioDto usuarioDto)
         {
             await _usuarioValidator.ValidateAndThrowAsync(usuarioDto);
             Usuario usuario = await _servUsuario.Cadastrar(usuarioDto);
-            return usuario;
+            return UsuarioMapper.ParaRespostaDto(usuario);
         }
         #endregion
 
         #region Listar
-        public async Task<List<Usuario>> Listar()
+        public async Task<List<UsuarioRespostaDto>> Listar()
         {
-            return await _servUsuario.Listar();
+            List<Usuario> usuarios = await _servUsuario.Listar();
+
+            return UsuarioMapper.ParaRespostaDtoLista(usuarios);
         }
         #endregion
 
         #region BuscarPorId
-        public async Task<Usuario> BuscarPorId(Guid id)
+        public async Task<UsuarioRespostaDto> BuscarPorId(Guid id)
         {
-            return await _servUsuario.BuscarPorId(id);
+            Usuario usuario = await _servUsuario.BuscarPorId(id);
+
+            return UsuarioMapper.ParaRespostaDto(usuario);
         }
         #endregion
 
         #region Remover
-        public async Task<Usuario> Remover(Guid id)
+        public async Task Remover(Guid id)
         {
-            return await _servUsuario.Remover(id);
+            await _servUsuario.Remover(id);
         }
         #endregion
 
         #region Editar
-        public async Task<Usuario> Editar(Guid id, UsuarioEditarDto usuarioEditarDto)
+        public async Task<UsuarioRespostaDto> Editar(Guid id, UsuarioEditarDto usuarioEditarDto)
         {
-            await _usuarioEditarValidator.ValidateAndThrowAsync(usuarioEditarDto);
-            return await _servUsuario.Editar(id, usuarioEditarDto);
+            Usuario usuario = await _servUsuario.Editar(id, usuarioEditarDto);
+
+            return UsuarioMapper.ParaRespostaDto(usuario);
         }
         #endregion
 
         #region TornarAdmin
-        public async Task<Usuario> TornarAdmin(Guid id)
+        public async Task<UsuarioRespostaDto> TornarAdmin(Guid id)
         {
-            return await _servUsuario.TornarAdmin(id);
+            Usuario usuario = await _servUsuario.TornarAdmin(id);
+
+            return UsuarioMapper.ParaRespostaDto(usuario);
+
         }
         #endregion
     }

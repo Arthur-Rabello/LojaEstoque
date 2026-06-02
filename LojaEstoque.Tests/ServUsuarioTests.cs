@@ -324,6 +324,55 @@ namespace LojaEstoque.Tests
 				x.SenhaHash == "hash_novo")))
 				.MustHaveHappenedOnceExactly();
 		}
-		#endregion
-	}
+        #endregion
+
+        #region Remover_UsuarioInexistente_DeveLancarRegraDeNegocioException
+        [Theory]
+        [AutoData]
+        public async Task Remover_UsuarioInexistente_DeveLancarRegraDeNegocioException(Guid id)
+        {
+            IRepUsuario repUsuario = A.Fake<IRepUsuario>();
+            IServToken servToken = A.Fake<IServToken>();
+            IServSenha servSenha = A.Fake<IServSenha>();
+
+            A.CallTo(() => repUsuario.BuscarPorId(id))
+                .Returns(Task.FromResult<Usuario?>(null));
+
+            ServUsuario servUsuario = new ServUsuario(repUsuario, servToken, servSenha);
+
+            RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servUsuario.Remover(id));
+
+            Assert.Equal("Usuário não encontrado.", exception.Message);
+
+            A.CallTo(() => repUsuario.Remover(A<Usuario>._))
+                .MustNotHaveHappened();
+        }
+        #endregion
+
+        #region Remover_UsuarioExistente_DeveRemoverUsuario
+        [Theory]
+        [AutoData]
+        public async Task Remover_UsuarioExistente_DeveRemoverUsuario(Guid id, Usuario usuario)
+        {
+            IRepUsuario repUsuario = A.Fake<IRepUsuario>();
+            IServToken servToken = A.Fake<IServToken>();
+            IServSenha servSenha = A.Fake<IServSenha>();
+
+            usuario.Id = id;
+
+            A.CallTo(() => repUsuario.BuscarPorId(id))
+                .Returns(usuario);
+
+            A.CallTo(() => repUsuario.Remover(usuario))
+                .Returns(Task.CompletedTask);
+
+            ServUsuario servUsuario = new ServUsuario(repUsuario, servToken, servSenha);
+
+            await servUsuario.Remover(id);
+
+            A.CallTo(() => repUsuario.Remover(A<Usuario>.That.Matches(x => x.Id == id)))
+                .MustHaveHappenedOnceExactly();
+        }
+        #endregion
+    }
 }

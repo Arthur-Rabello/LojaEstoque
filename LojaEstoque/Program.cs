@@ -1,4 +1,5 @@
 using DotNetEnv;
+using LojaEstoque.Api.Middlewares;
 using LojaEstoque.Aplicacao.Aplic;
 using LojaEstoque.Aplicacao.Interfaces;
 using LojaEstoque.Aplicacao.Validators;
@@ -7,8 +8,8 @@ using LojaEstoque.Dominio.Services;
 using LojaEstoque.Repositories.Contexto;
 using LojaEstoque.Repositories.Interfaces;
 using LojaEstoque.Repositories.Reps;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -56,7 +57,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 builder.Services.AddScoped<IAplicCarrinho, AplicCarrinho>();
 builder.Services.AddScoped<IServCarrinho, ServCarrinho>();
 builder.Services.AddScoped<IRepCarrinho, RepCarrinho>();
@@ -90,12 +91,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllers();
 
 app.Run();

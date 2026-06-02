@@ -44,15 +44,12 @@ namespace LojaEstoque.Repositories.Reps
         #endregion
 
         #region Remover
-        public async Task<Usuario?> Remover(Guid id)
+        public async Task Remover(Usuario usuario)
         {
-            Usuario? usuario = await BuscarPorId(id);
-
             _lojaContext.Usuario.Remove(usuario);
 
             await _lojaContext.SaveChangesAsync();
 
-            return usuario;
         }
         #endregion
 

@@ -1,13 +1,12 @@
 ﻿using LojaEstoque.Aplicacao.Dtos;
 using LojaEstoque.Aplicacao.Interfaces;
 using LojaEstoque.Dominio.Entidades;
-using LojaEstoque.Dominio.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaEstoque.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class CarrinhoController : Controller
+    public class CarrinhoController : ControllerBase
     {
         private readonly IAplicCarrinho _aplicCarrinho;
 
@@ -20,28 +19,11 @@ namespace LojaEstoque.Api.Controllers
 
         #region Cadastrar
         [HttpPost("Cadastrar")]
-        public async Task<IActionResult> Cadastar([FromBody] CarrinhoDto carrinhoDto)
+        public async Task<IActionResult> Cadastrar([FromBody] CarrinhoDto carrinhoDto)
         {
-            try
-            {
-                var carrinho = await _aplicCarrinho.Cadastrar(carrinhoDto);
+            var carrinho = await _aplicCarrinho.Cadastrar(carrinhoDto);
 
-                return Ok(carrinho);
-            }
-            catch (RegraDeNegocioException ex)
-            {
-                return BadRequest(new
-                {
-                    mensagem = ex.Message
-                });
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, new
-                {
-                    mensagem = "Ocorreu um erro interno no sistema."
-                });
-            }
+            return Ok(carrinho);
         }
         #endregion
 

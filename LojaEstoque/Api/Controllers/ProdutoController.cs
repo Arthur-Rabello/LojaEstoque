@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LojaEstoque.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class ProdutoController : Controller
+    public class ProdutoController : ControllerBase
     {
         private readonly IAplicProduto _aplicProduto;
         #region ProdutoController
