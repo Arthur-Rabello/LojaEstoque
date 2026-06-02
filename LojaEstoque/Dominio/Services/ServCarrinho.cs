@@ -72,11 +72,26 @@ namespace LojaEstoque.Dominio.Services
         public async Task<Carrinho> Remover(Guid id)
         {
             Carrinho carrinho = await _repCarrinho.BuscarPorId(id);
+
             if (carrinho == null)
             {
                 throw new RegraDeNegocioException("Carrinho não encontrado");
             }
-            return await _repCarrinho.Remover(id);
+
+            Produto produto = await _repProduto.BuscarPorId(carrinho.ProdutoId);
+
+            if (produto == null)
+            {
+                throw new RegraDeNegocioException("Produto não encontrado");
+            }
+
+            produto.Quantidade += carrinho.Quantidade;
+
+            await _repProduto.Editar(produto);
+
+            Carrinho carrinhoRemovido = await _repCarrinho.Remover(id);
+
+            return carrinhoRemovido;
         }
         #endregion
 
@@ -84,15 +99,39 @@ namespace LojaEstoque.Dominio.Services
         public async Task<Carrinho> Editar(Guid id, CarrinhoEditarDto carrinhoEditarDto)
         {
             Carrinho carrinho = await _repCarrinho.BuscarPorId(id);
+
             if (carrinho == null)
             {
                 throw new RegraDeNegocioException("Carrinho não encontrado");
             }
+
+            Produto produto = await _repProduto.BuscarPorId(carrinho.ProdutoId);
+
+            if (produto == null)
             {
-                carrinho.Quantidade = carrinhoEditarDto.Quantidade;
+                throw new RegraDeNegocioException("Produto não encontrado");
             }
-            ;
-            return await _repCarrinho.Editar(carrinho);
+
+
+            int quantidadeAntiga = carrinho.Quantidade;
+            int novaQuantidade = carrinhoEditarDto.Quantidade;
+            int diferencaQuantidade = novaQuantidade - quantidadeAntiga;
+
+            if (diferencaQuantidade > 0 && produto.Quantidade < diferencaQuantidade)
+            {
+                throw new RegraDeNegocioException("Quantidade em estoque insuficiente.");
+            }
+
+            produto.Quantidade -= diferencaQuantidade;
+
+            carrinho.Quantidade = novaQuantidade;
+            carrinho.PrecoTotal = carrinho.Quantidade * carrinho.PrecoUnitario;
+
+            await _repProduto.Editar(produto);
+
+            Carrinho carrinhoEditado = await _repCarrinho.Editar(carrinho);
+
+            return carrinhoEditado;
         }
         #endregion
     }

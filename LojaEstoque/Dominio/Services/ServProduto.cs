@@ -8,12 +8,12 @@ namespace LojaEstoque.Dominio.Services
 {
     public class ServProduto : IServProduto
     {
-        private readonly IRepProduto _irepProduto;
+        private readonly IRepProduto _repProduto;
 
         #region ServProduto
         public ServProduto(IRepProduto irepProduto)
         {
-            _irepProduto = irepProduto;
+            _repProduto = irepProduto;
         }
         #endregion
         #region Cadastrar
@@ -25,7 +25,7 @@ namespace LojaEstoque.Dominio.Services
             produto.PrecoUnitario = produtoDto.PrecoUnitario;
             produto.Quantidade = produtoDto.Quantidade;
 
-            bool descricaoExiste = await _irepProduto.ExisteDescricao(produtoDto.Descricao);
+            bool descricaoExiste = await _repProduto.ExisteDescricao(produtoDto.Descricao);
 
             if (descricaoExiste)
             {
@@ -33,7 +33,7 @@ namespace LojaEstoque.Dominio.Services
             }
 
 
-            await _irepProduto.Cadastrar(produto);
+            await _repProduto.Cadastrar(produto);
             return produto;
         } 
         #endregion
@@ -41,7 +41,7 @@ namespace LojaEstoque.Dominio.Services
         #region Listar
         public async Task<List<Produto>> Listar()
         {
-            return await _irepProduto.Listar();
+            return await _repProduto.Listar();
 
         }
         #endregion
@@ -49,14 +49,14 @@ namespace LojaEstoque.Dominio.Services
         #region BuscarPorId
         public async Task<Produto> BuscarPorId(Guid id)
         {
-            return await _irepProduto.BuscarPorId(id);
+            return await _repProduto.BuscarPorId(id);
         }
         #endregion
 
         #region Remover
         public async Task<Produto> Remover(Guid id)
         {
-            Produto produto = await _irepProduto.BuscarPorId(id);
+            Produto produto = await _repProduto.BuscarPorId(id);
 
             if (produto == null)
             {
@@ -64,14 +64,14 @@ namespace LojaEstoque.Dominio.Services
             }
 
 
-            return await _irepProduto.Remover(id);
+            return await _repProduto.Remover(id);
         }
         #endregion
 
         #region Editar
         public async Task<Produto> Editar(Guid id, ProdutoDto produtoDto)
         {
-            Produto produto = await _irepProduto.BuscarPorId(id);
+            Produto produto = await _repProduto.BuscarPorId(id);
 
             if (produto == null)
             {
@@ -82,14 +82,14 @@ namespace LojaEstoque.Dominio.Services
             produto.PrecoUnitario = produtoDto.PrecoUnitario;
             produto.Quantidade = produtoDto.Quantidade;
 
-            bool descricaoExiste = await _irepProduto.ExisteDescricaoOutroProduto(produto.Id, produtoDto.Descricao);
+            bool descricaoExiste = await _repProduto.ExisteDescricaoOutroProduto(produto.Id, produtoDto.Descricao);
 
             if (descricaoExiste)
             {
                 throw new RegraDeNegocioException("Já existe outro produto com essa descrição");
             }
 
-            Produto produtoEditado = await _irepProduto.Editar(produto);
+            Produto produtoEditado = await _repProduto.Editar(produto);
 
             return produtoEditado;
         }

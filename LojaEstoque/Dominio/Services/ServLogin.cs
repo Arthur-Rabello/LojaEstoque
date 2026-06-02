@@ -1,5 +1,6 @@
 ﻿using LojaEstoque.Aplicacao.Dtos;
 using LojaEstoque.Dominio.Entidades;
+using LojaEstoque.Dominio.Exceptions;
 using LojaEstoque.Dominio.Interfaces;
 using LojaEstoque.Repositories.Interfaces;
 
@@ -9,21 +10,31 @@ namespace LojaEstoque.Dominio.Services
     {
         private readonly IRepUsuario _repUsuario;
         private readonly IServToken _servToken;
+        private readonly IServSenha _servSenha;
 
-        public ServLogin(IRepUsuario repUsuario, IServToken servToken)
+        public ServLogin(IRepUsuario repUsuario, IServToken servToken, IServSenha servSenha)
         {
             _repUsuario = repUsuario;
             _servToken = servToken;
+            _servSenha = servSenha;
         }
 
         #region Login
         public async Task<LoginRespostaDto> Login(LoginDto loginDto)
         {
-            Usuario? usuario = await _repUsuario.BuscarPorEmail(loginDto.Email);
+            string emailnormalizado = loginDto.Email.Trim().ToLowerInvariant();
+            Usuario? usuario = await _repUsuario.BuscarPorEmail(emailnormalizado);
 
             if (usuario == null)
             {
-                throw new Exception("E-mail ou senha inválidos.");
+                throw new RegraDeNegocioException("E-mail ou senha inválidos.");
+            }
+
+            bool senhavalida = _servSenha.VerificarSenha(loginDto.Senha, usuario.SenhaHash);
+
+            if (senhavalida == false)
+            {
+                throw new RegraDeNegocioException("E-mail ou senha inválidos.");
             }
 
             string token = _servToken.GerarToken(usuario);
