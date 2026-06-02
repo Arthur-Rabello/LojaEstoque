@@ -1,4 +1,4 @@
-using AutoFixture.Xunit2;
+﻿using AutoFixture.Xunit2;
 using LojaEstoque.Dominio.Entidades;
 using LojaEstoque.Dominio.Services;
 using System.IdentityModel.Tokens.Jwt;

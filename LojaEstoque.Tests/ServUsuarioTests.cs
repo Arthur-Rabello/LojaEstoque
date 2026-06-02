@@ -1,4 +1,4 @@
-using AutoFixture.Xunit2;
+ï»¿using AutoFixture.Xunit2;
 using FakeItEasy;
 using LojaEstoque.Aplicacao.Dtos;
 using LojaEstoque.Dominio.Entidades;
@@ -29,7 +29,7 @@ namespace LojaEstoque.Tests
 
 			RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servUsuario.Cadastrar(usuarioDto));
 
-			Assert.Equal("Já existe um usuário com este email cadastrado", exception.Message);
+			Assert.Equal("JÃ¡ existe um usuÃ¡rio com este email cadastrado", exception.Message);
 
 			A.CallTo(() => repUsuario.Cadastrar(A<Usuario>._))
 				.MustNotHaveHappened();
@@ -124,7 +124,7 @@ namespace LojaEstoque.Tests
 
 			RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servUsuario.Editar(id, usuarioEditarDto));
 
-			Assert.Equal("Usuário não encontrado.", exception.Message);
+			Assert.Equal("UsuÃ¡rio nÃ£o encontrado.", exception.Message);
 
 			A.CallTo(() => repUsuario.Editar(A<Usuario>._))
 				.MustNotHaveHappened();
@@ -154,7 +154,7 @@ namespace LojaEstoque.Tests
 
 			RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servUsuario.Editar(id, usuarioEditarDto));
 
-			Assert.Equal("Email já cadastrado.", exception.Message);
+			Assert.Equal("Email jÃ¡ cadastrado.", exception.Message);
 
 			A.CallTo(() => repUsuario.Editar(A<Usuario>._))
 				.MustNotHaveHappened();
@@ -216,7 +216,7 @@ namespace LojaEstoque.Tests
 
 			RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servUsuario.TornarAdmin(id));
 
-			Assert.Equal("Usuário não encontrado.", exception.Message);
+			Assert.Equal("UsuÃ¡rio nÃ£o encontrado.", exception.Message);
 
 			A.CallTo(() => repUsuario.Editar(A<Usuario>._))
 				.MustNotHaveHappened();
@@ -279,7 +279,7 @@ namespace LojaEstoque.Tests
 
 			Exception exception = await Assert.ThrowsAsync<Exception>(() => servUsuario.AlterarSenha(id, usuarioAlterarSenhaDto));
 
-			Assert.Equal("Senha atual inválida.", exception.Message);
+			Assert.Equal("Senha atual invÃ¡lida.", exception.Message);
 
 			A.CallTo(() => repUsuario.Editar(A<Usuario>._))
 				.MustNotHaveHappened();

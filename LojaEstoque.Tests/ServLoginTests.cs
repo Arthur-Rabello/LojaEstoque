@@ -1,4 +1,4 @@
-using AutoFixture.Xunit2;
+ï»¿using AutoFixture.Xunit2;
 using FakeItEasy;
 using LojaEstoque.Aplicacao.Dtos;
 using LojaEstoque.Dominio.Entidades;
@@ -30,7 +30,7 @@ namespace LojaEstoque.Tests
 
             RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servLogin.Login(loginDto));
 
-            Assert.Equal("E-mail ou senha inválidos.", exception.Message);
+            Assert.Equal("E-mail ou senha invÃ¡lidos.", exception.Message);
 
             A.CallTo(() => servToken.GerarToken(A<Usuario>._))
                 .MustNotHaveHappened();
@@ -62,7 +62,7 @@ namespace LojaEstoque.Tests
 
             RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servLogin.Login(loginDto));
 
-            Assert.Equal("E-mail ou senha inválidos.", exception.Message);
+            Assert.Equal("E-mail ou senha invÃ¡lidos.", exception.Message);
 
             A.CallTo(() => servToken.GerarToken(A<Usuario>._))
                 .MustNotHaveHappened();

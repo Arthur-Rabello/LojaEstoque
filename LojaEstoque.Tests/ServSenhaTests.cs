@@ -1,4 +1,4 @@
-using AutoFixture.Xunit2;
+﻿using AutoFixture.Xunit2;
 using LojaEstoque.Dominio.Services;
 
 namespace LojaEstoque.Tests

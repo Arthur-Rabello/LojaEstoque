@@ -1,4 +1,4 @@
-using AutoFixture.Xunit2;
+ï»¿using AutoFixture.Xunit2;
 using FakeItEasy;
 using LojaEstoque.Aplicacao.Dtos;
 using LojaEstoque.Dominio.Entidades;
@@ -25,7 +25,7 @@ namespace LojaEstoque.Tests
 
 			RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servCarrinho.Cadastrar(carrinhoDto));
 
-			Assert.Equal("Produto não encontrado", exception.Message);
+			Assert.Equal("Produto nÃ£o encontrado", exception.Message);
 
 			A.CallTo(() => repCarrinho.Cadastrar(A<Carrinho>._))
 				.MustNotHaveHappened();
@@ -175,7 +175,7 @@ namespace LojaEstoque.Tests
 
 			RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servCarrinho.Editar(id, carrinhoEditarDto));
 
-			Assert.Equal("Carrinho não encontrado", exception.Message);
+			Assert.Equal("Carrinho nÃ£o encontrado", exception.Message);
 
 			A.CallTo(() => repCarrinho.Editar(A<Carrinho>._))
 				.MustNotHaveHappened();
@@ -243,7 +243,7 @@ namespace LojaEstoque.Tests
 
 			RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servCarrinho.Remover(id));
 
-			Assert.Equal("Carrinho não encontrado", exception.Message);
+			Assert.Equal("Carrinho nÃ£o encontrado", exception.Message);
 
 			A.CallTo(() => repCarrinho.Remover(A<Guid>._))
 				.MustNotHaveHappened();

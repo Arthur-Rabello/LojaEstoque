@@ -1,4 +1,4 @@
-using AutoFixture.Xunit2;
+ï»¿using AutoFixture.Xunit2;
 using FakeItEasy;
 using LojaEstoque.Aplicacao.Dtos;
 using LojaEstoque.Dominio.Entidades;
@@ -24,7 +24,7 @@ namespace LojaEstoque.Tests
 
             RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servProduto.Cadastrar(produtoDto));
 
-            Assert.Equal("Já existe um produto com essa descrição", exception.Message);
+            Assert.Equal("JÃ¡ existe um produto com essa descriÃ§Ã£o", exception.Message);
 
             A.CallTo(() => repProduto.Cadastrar(A<Produto>._))
                 .MustNotHaveHappened();
@@ -72,7 +72,7 @@ namespace LojaEstoque.Tests
 
             RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servProduto.Editar(id, produtoDto));
 
-            Assert.Equal("Produto não encontrado", exception.Message);
+            Assert.Equal("Produto nÃ£o encontrado", exception.Message);
 
             A.CallTo(() => repProduto.Editar(A<Produto>._))
                 .MustNotHaveHappened();
@@ -98,7 +98,7 @@ namespace LojaEstoque.Tests
 
             RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servProduto.Editar(id, produtoDto));
 
-            Assert.Equal("Já existe outro produto com essa descrição", exception.Message);
+            Assert.Equal("JÃ¡ existe outro produto com essa descriÃ§Ã£o", exception.Message);
 
             A.CallTo(() => repProduto.Editar(A<Produto>._))
                 .MustNotHaveHappened();
@@ -154,7 +154,7 @@ namespace LojaEstoque.Tests
 
             RegraDeNegocioException exception = await Assert.ThrowsAsync<RegraDeNegocioException>(() => servProduto.Remover(id));
 
-            Assert.Equal("Produto não encontrado", exception.Message);
+            Assert.Equal("Produto nÃ£o encontrado", exception.Message);
 
             A.CallTo(() => repProduto.Remover(A<Guid>._))
                 .MustNotHaveHappened();
